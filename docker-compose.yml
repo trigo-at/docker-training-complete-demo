@@ -1,0 +1,46 @@
+version: "3"
+
+services:
+  haproxy:
+    image: haproxy:1.7
+    ports:
+    - "80:80"
+    - "8080:8080"
+    networks:
+    - dmz
+    volumes:
+    - ./haproxy:/usr/local/etc/haproxy
+
+  redis:
+    image: redis:3.2
+    command: redis-server --appendonly yes
+    volumes:
+    - redis_data:/data
+    networks:
+    - internal
+  
+  hello-world:
+    image: mdulghier/hello-world
+    networks:
+    - dmz
+    environment:
+    - REQUESTCOUNTERURL=http://request-counter:8090
+
+  request-counter:
+    image: mdulghier/request-counter
+    networks:
+    - dmz
+    - internal
+    environment:
+    - REDIS_HOST=redis
+
+
+volumes:
+  redis_data:
+    driver: local
+
+networks:
+  dmz:
+    driver: bridge
+  internal:
+    driver: bridge

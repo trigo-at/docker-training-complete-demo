@@ -1,0 +1,9 @@
+[submodule "haproxy"]
+	path = haproxy
+	url = https://github.com/trigo-at/docker-training-files
+[submodule "hello-world"]
+	path = hello-world
+	url = https://github.com/trigo-at/docker-training-hello-world
+[submodule "request-counter"]
+	path = request-counter
+	url = https://github.com/trigo-at/docker-training-request-counter

@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  hello-world:
+    build:
+      context: ./hello-world
+    volumes:
+    - ./hello-world:/app 
+    - /app/node_modules
+    command: ./node_modules/.bin/nodemon index.js
